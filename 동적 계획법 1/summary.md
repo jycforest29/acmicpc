@@ -1,0 +1,34 @@
+DP란
+DP는 재귀(큰 문제를 작은 문제로 나누는 역할)에 대한 최적화
+DP 사용 조건
+-중복된 부분 문제
+-재귀를 활용해 최적 부분 구조를 세울 수 있는 경우. EX. 피보나치의 경우 F(n) = F(n-1)+F(n-2)
+DP 구현
+-하향식(메모이제이션)
+int fib(int n, int memo[]){
+    <!-- 미리 초기값은 -1로 설정 -->
+    if(memo[n] == -1){
+        <!-- 메모이제이션 배열에 담을 값 -->
+        int res;
+        if(n == 0 || n == 1){
+            res = n;
+        }else{
+            res = fib(n-1, memo)+fib(n-2, memo);
+        }
+        memo[n] = res;
+    }
+    return memo[n];
+}
+-상향식(전체적인 틀은 DP의 정의인 큰 문제 -> 작은 문제를 따르지만 실제 구현에서는 반대이기 때문에 재귀 사용 안함. 작은 문제의 값을 table에 저장)
+int fib(int n){
+    int table[n+1];
+    table[0] = 0, table[1] = 1;
+    for(int i = 2; i <= n; i++){
+        table[i] = table[i-1]+table[i-2];
+    }
+    return table[n];
+}
+1차원 배열 사용 이유? 배열 차원은 재귀 호출시 바뀌는 변수의 수에 따라 구해짐. 이 경우엔 한번의 재귀적 호출에 하나의 매개변수만 바꿀 수 있으므로
+1차원 배열 사용.
+
+출처 https://www.hanbit.co.kr/media/channel/view.html?cms_code=CMS4008657032
